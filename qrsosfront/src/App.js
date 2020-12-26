@@ -1,19 +1,9 @@
-import { gql } from '@apollo/client';
-import Loader from "./components/Loader"
-const USER_QUERY = gql`query($userId:String){
-  user(userId:$userId){
-		id
-    bloodType
-    img
-  } 
-}`
+import UserData from "./containers/User/"
 
-function App() {
-  return (
-        <Loader query={USER_QUERY} variables={{userId:1}}>
-          {(data)=> JSON.stringify(data)}
-        </Loader>
-  );
-}
+const App = () => (
+    <div className="container mt-5">
+      <UserData />
+    </div>
+)
 
 export default App;
