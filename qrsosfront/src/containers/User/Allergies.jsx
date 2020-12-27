@@ -1,14 +1,14 @@
-import Loader from "../../components/Loader"
 import {ListItem, ListItemText, Collapse, List , Dialog, Button} from '@material-ui/core';
 import { useState } from "react";
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 
-function ChronicPopUp(props) {
+function AllergiesPopUp(props) {
     const {user} = props
     const initialStates = {}
-    user.chronicDisease.map(item=> initialStates[item.id] = false )
+    user.allergy.map(item=> initialStates[item.id] = false)
+    console.log(initialStates)
     const [isOpen, setOpen] = useState(false)
     const [expand, setExpand] = useState(false)
     const [selected, setSelected] = useState(initialStates)
@@ -28,21 +28,23 @@ function ChronicPopUp(props) {
 
     return (
         <div>
-            <Button color="primary" variant="contained" style={{width:"100%"}} onClick={handleOpen}>Enfermedades Cronicas</Button>
+            <Button color="primary" variant="contained" style={{width:"100%"}} onClick={handleOpen}>Alergias</Button>
             <Dialog style={{height:"100%",width:"100%"}} onClose={handleClose} open={isOpen}>
                 <List>
-                    {user.chronicDisease.map(item=>
+                    {user.allergy.map(item=>
                     <>
                         <ListItem button onClick={()=>handleClick(item.id)}>
                         <ListItemText primary={item.name} />
                             {selected[item.id] ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
                         <Collapse in={selected[item.id]} timeout="auto" unmountOnExit>
+
                         <List component="div" disablePadding>
                             <ListItem>
-                                {`Medicacion: ${item.medication}`}
+                                {`Medication: ${item.medication}`}
                             </ListItem>
                         </List>
+
                     </Collapse>        
                     </>)}
 
@@ -53,4 +55,4 @@ function ChronicPopUp(props) {
   );
 }
 
-export default ChronicPopUp;
+export default AllergiesPopUp;
