@@ -17,5 +17,11 @@ export const USER_QUERY = gql`query($userId:String){
       medication
       comment
     }
+    allergy{
+      id
+      name
+      comment
+      medication
+    }
   } 
 }`

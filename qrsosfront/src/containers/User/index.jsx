@@ -1,6 +1,7 @@
 import Loader from "../../components/Loader"
 import UserTopGrid from "./UserTopGrid"
 import ChronicPopUp from "./ChronicPopUp"
+import AllergiesPopUp from "./Allergies"
 import { USER_QUERY } from "./queries/userDataQUery"
 
 const UserData = props => (
@@ -21,6 +22,9 @@ const UserData = props => (
               </div>
               <div className="col-12 offset-md-4 col-md-8 mt-4">
                   <ChronicPopUp user={data.user} />
+              </div>
+              <div className="col-12 offset-md-4 col-md-8 mt-4">
+                  <AllergiesPopUp user={data.user} />
               </div>
             </div>
           </div>

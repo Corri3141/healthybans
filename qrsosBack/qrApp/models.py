@@ -42,4 +42,5 @@ class ChronicDisease(models.Model):
 class Allergy(models.Model):
     name = models.CharField(max_length=200)
     comment = models.TextField()
+    medication = models.CharField(max_length=200, null=True, blank=True)
     user = models.ForeignKey(UserProfile, related_name="allergy", on_delete=models.CASCADE)
