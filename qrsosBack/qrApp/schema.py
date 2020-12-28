@@ -35,7 +35,45 @@ class Query(graphene.ObjectType):
     def resolve_allergies(self,info,**kwargs):
         return Allergy.objects.filter(user__id = kwargs["user_id"])
     
+class EditUser(graphene.Mutation):
+    user = graphene.Field(UserType)
+    class Arguments:
+        id = graphene.String()
+        first_name = graphene.String()
+        last_name = graphene.String()    
+        dni = graphene.String()  
+        prepaid_health = graphene.String()
+        emergency_number = graphene.String()  
+        
+    def mutate(self, info, **inputs):
+        print(inputs)
+        user = UserProfile.objects.get(user__id=inputs.get("id"))
 
-    
+        first_name = inputs.get("first_name")
+        if first_name:
+            user.first_name = first_name
 
-schema = graphene.Schema(query=Query)
+        last_name = inputs.get("last_name")    
+        if last_name:
+            user.last_name = last_name
+
+        dni = inputs.get("dni")
+        if dni:
+            user.dni = dni
+        
+        prepaid_health = inputs.get("prepaid_health")
+        if dni:
+            user.prepaid_health = prepaid_health
+        
+        emergency_number = inputs.get("emergency_number")
+        if emergency_number:
+            user.emergency_number = emergency_number
+
+        user.save()
+            
+        return EditUser(user=user)
+
+class Mutation(graphene.ObjectType):
+    edit_user = EditUser.Field()
+
+schema = graphene.Schema(query=Query ,mutation=Mutation)
