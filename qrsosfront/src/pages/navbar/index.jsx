@@ -1,6 +1,4 @@
 import {Drawer, AppBar , List, ListItem, ListItemIcon, IconButton, Toolbar  } from '@material-ui/core';
-import Loader from "../../components/Loader"
-import {USER_QUERY} from "../../containers/User/queries/userDataQUery"
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useState } from 'react';
@@ -8,12 +6,20 @@ import EditIcon from '@material-ui/icons/Edit';
 import BackupIcon from '@material-ui/icons/Backup';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useHistory } from "react-router-dom";
+import HomeIcon from '@material-ui/icons/Home';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles({
+  paper: {
+    background: '#e8dec5',
+  }
+});
 
 
 export default function Navbar(props){
     const [isDrawerOpen, setDrawerState] = useState(false)
     const history = useHistory();
+    const styles = useStyles();
 
     const routeChange = (path) =>{  
         history.push(path);
@@ -29,7 +35,7 @@ export default function Navbar(props){
 
     return(
         <div style={{width:"100%"}}>
-        <AppBar>
+        <AppBar style={{backgroundColor:"#b3a584"}}>
             <Toolbar>
             <IconButton edge="start" style={{color:"white"}} onClick={handleOpenDrawer}>
                 <MenuIcon />
@@ -39,8 +45,14 @@ export default function Navbar(props){
         </AppBar>        
 
         
-        <Drawer anchor="left" open={isDrawerOpen} onClose={handleClose}>
+        <Drawer classes={{ paper: styles.paper }}  anchor="left" open={isDrawerOpen} onClose={handleClose}>
                     <List>
+                    <ListItem button onClick={()=>routeChange("home")}>
+                            <ListItemIcon>
+                                <HomeIcon />
+                            </ListItemIcon>
+                            Home
+                    </ListItem>
                         <ListItem button onClick={()=>routeChange("profile")}>
                             <ListItemIcon>
                                 <AccountCircleIcon />
