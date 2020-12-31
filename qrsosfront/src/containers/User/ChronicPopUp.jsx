@@ -28,7 +28,7 @@ function ChronicPopUp(props) {
 
     return (
         <div>
-            <Button color="primary" variant="contained" style={{width:"100%"}} onClick={handleOpen}>Enfermedades Cronicas</Button>
+            <Button color="default" variant="contained" style={{width:"100%"}} onClick={handleOpen}>Enfermedades Cronicas</Button>
             <Dialog style={{height:"100%",width:"100%"}} onClose={handleClose} open={isOpen}>
                 <List>
                     {user.chronicDisease.map(item=>

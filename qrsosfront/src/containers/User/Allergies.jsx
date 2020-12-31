@@ -28,7 +28,7 @@ function AllergiesPopUp(props) {
 
     return (
         <div>
-            <Button color="primary" variant="contained" style={{width:"100%"}} onClick={handleOpen}>Alergias</Button>
+            <Button color="default" variant="contained" style={{width:"100%"}} onClick={handleOpen}>Alergias</Button>
             <Dialog style={{height:"100%",width:"100%"}} onClose={handleClose} open={isOpen}>
                 <List>
                     {user.allergy.map(item=>
