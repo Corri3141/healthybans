@@ -7,16 +7,20 @@ import {
   } from "react-router-dom"
 import UserEditor from "../pages/userMutator/index"
 import UserData from "../containers/User/index"
+import Navbar from "../pages/navbar/index"
 
 export default class Routes extends React.Component{
     render(){
         return(
             <Router>
                 <Switch>
+                    <Route path="/" component={Navbar} />
+                </Switch>
+                <Switch>
                     <Route path="/edit" component={UserEditor} />
                 </Switch>
                 <Switch>
-                    <Route path="/userData" component={UserData} />
+                    <Route path="/profile" component={UserData} />
                 </Switch>
             </Router>
         )

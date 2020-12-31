@@ -5,7 +5,7 @@ import AllergiesPopUp from "./Allergies"
 import { USER_QUERY } from "./queries/userDataQUery"
 
 const UserData = props => (
-  <div>
+  <div style={{margin:"10%"}}>
       <Loader query={USER_QUERY} variables={{userId:1}}>
         {/* TODO Esto no me gusta hay que minimizar codigo aca */}
         {/* quizas haya que manejar las queries de otra manera */}

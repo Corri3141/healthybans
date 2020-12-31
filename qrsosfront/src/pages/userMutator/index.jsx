@@ -54,7 +54,7 @@ function UserMutator(props){
     }
 
     return(
-        <div>
+        <div style={{margin:"10%"}}>
             <center><Typography variant="h5">Editar Perfil</Typography></center>
             <Divider />
             <Grid  container style={{margin:"2%"}}>
