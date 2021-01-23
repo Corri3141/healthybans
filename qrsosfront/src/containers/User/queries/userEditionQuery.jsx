@@ -5,13 +5,19 @@ export const USER_EDITION = gql`
                          $firstName: String,
                          $lastName:String,
                          $prepaidHealth:String,
-                         $emergencyNumber:String,) {
+                         $emergencyNumber:String,
+                         $prepaidId:String,
+                         $dni:String,
+                         $bloodType:String,) {
         editUser(
         id: $id,
         firstName: $firstName,
         lastName: $lastName,
         prepaidHealth: $prepaidHealth,
-        emergencyNumber: $emergencyNumber) {
+        emergencyNumber: $emergencyNumber,
+        dni:$dni,
+        prepaidId:$prepaidId,
+        bloodType:$bloodType,) {
       user{
           id
       }

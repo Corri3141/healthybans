@@ -3,6 +3,8 @@ from .models import ChronicDisease, Allergy, UserProfile
 import graphene
 from dateutil.relativedelta import relativedelta
 from graphene import InputObjectType
+import graphql_jwt
+from django.contrib.auth.models import User
 
 
 class UserType(DjangoObjectType):
@@ -23,17 +25,17 @@ class Query(graphene.ObjectType):
     def resolve_all_users(self, info, **kwargs):
         return UserProfile.objects.all()
     
-    user = graphene.Field(UserType,user_id=graphene.String())
+    user = graphene.Field(UserType)
     def resolve_user(self, info, **kwargs):
-        return UserProfile.objects.get(id = kwargs["user_id"])
+        return info.context.user.userprofile
     
     chronics = graphene.List(ChronicDiseaseType)
     def resolve_chronics(self, info, **kwargs):
-        return ChronicDisease.objects.filter(user__id = kwargs["user_id"])
+        return ChronicDisease.objects.filter(user = info.context.user.userprofile)
     
-    allergies = graphene.List(AllergyType,user_id=graphene.String())
+    allergies = graphene.List(AllergyType)
     def resolve_allergies(self,info,**kwargs):
-        return Allergy.objects.filter(user__id = kwargs["user_id"])
+        return Allergy.objects.filter(user = info.context.user.userprofile)
     
 class EditUser(graphene.Mutation):
     user = graphene.Field(UserType)
@@ -43,37 +45,61 @@ class EditUser(graphene.Mutation):
         last_name = graphene.String()    
         dni = graphene.String()  
         prepaid_health = graphene.String()
-        emergency_number = graphene.String()  
+        emergency_number = graphene.String() 
+        prepaidId =  graphene.String() 
+        blood_type =  graphene.String() 
+        
         
     def mutate(self, info, **inputs):
-        print(inputs)
         user = UserProfile.objects.get(user__id=inputs.get("id"))
 
-        first_name = inputs.get("first_name")
-        if first_name:
-            user.first_name = first_name
-
-        last_name = inputs.get("last_name")    
-        if last_name:
-            user.last_name = last_name
-
-        dni = inputs.get("dni")
-        if dni:
-            user.dni = dni
-        
-        prepaid_health = inputs.get("prepaid_health")
-        if dni:
-            user.prepaid_health = prepaid_health
-        
-        emergency_number = inputs.get("emergency_number")
-        if emergency_number:
-            user.emergency_number = emergency_number
+        for k in inputs:
+            if inputs[k] and k != "id":
+                setattr(user, k, inputs[k])
 
         user.save()
             
         return EditUser(user=user)
 
+class CreateUser(graphene.Mutation):
+    user = graphene.Field(UserType)
+    class Arguments:
+        username = graphene.String()
+        email = graphene.String()
+        password = graphene.String()
+        first_name = graphene.String()
+        last_name = graphene.String()    
+        dni = graphene.String()  
+        prepaid_health = graphene.String()
+        emergency_number = graphene.String() 
+        prepaidId =  graphene.String() 
+        blood_type =  graphene.String() 
+        
+        
+    def mutate(self, info, **inputs):
+        user = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
+        first_name = inputs["first_name"]
+        blood_type = inputs["blood_type"]
+        dni = inputs["dni"]
+        emergency_number = inputs["emergency_number"]
+        last_name = inputs["last_name"]
+        prepaid_health = inputs["prepaid_health"]
+        prepaidId = inputs["prepaidId"]
+
+        user_profile = UserProfile.objects.create(user=user, blood_type=blood_type, first_name=first_name, dni=dni, emergency_number=emergency_number, last_name=last_name, prepaid_health=prepaid_health, prepaidId=prepaidId)
+
+        
+
+        user.save()
+        user_profile.save()
+            
+        return CreateUser(user=user_profile)
+
+
 class Mutation(graphene.ObjectType):
     edit_user = EditUser.Field()
+    token_auth = graphql_jwt.relay.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.relay.Verify.Field()
+    refresh_token = graphql_jwt.relay.Refresh.Field()
 
 schema = graphene.Schema(query=Query ,mutation=Mutation)

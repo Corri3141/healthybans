@@ -6,7 +6,7 @@ import { USER_QUERY } from "./queries/userDataQUery"
 
 const UserData = props => (
   <div style={{margin:"10%"}}>
-      <Loader query={USER_QUERY} variables={{userId:1}}>
+      <Loader query={USER_QUERY}>
         {/* TODO Esto no me gusta hay que minimizar codigo aca */}
         {/* quizas haya que manejar las queries de otra manera */}
         {(data)=> 

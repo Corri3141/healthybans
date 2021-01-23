@@ -22,17 +22,17 @@ const UserDetails = ({ user }) => (
         </div>
         <div className="col-12">
             <Typography variant="h7">
-                {`DNI: ${user.dni}`}
+                {`DNI: ${user.dni || ""}`}
             </Typography>
         </div>
         <div className="col-12">
             <Typography variant="h7">
-                {`Obra Social: ${user.prepaidHealth}`}
+                {`Obra Social: ${user.prepaidHealth || ""}`}
             </Typography>
         </div>
         <div className="col-12">
             <Typography variant="h7">
-                {`N° de afiliado: ${user.prepaidId}`}
+                {`N° de afiliado: ${user.prepaidId || ""}`}
             </Typography>
         </div>
         <div className="col-12">

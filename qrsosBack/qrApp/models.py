@@ -20,7 +20,7 @@ class UserProfile(models.Model):
     dni = models.IntegerField(null=True, blank=True)
     prepaid_health = models.CharField(max_length=200, null = True, blank = True)
     emergency_number = models.CharField(max_length=200, null = True, blank = True)
-    comment = models.TextField()
+    comment = models.TextField( null = True, blank = True)
     img = models.ImageField(null = True, blank = True, upload_to='face')
     prepaidId = models.CharField(null=True, blank=True, max_length=200)
     
