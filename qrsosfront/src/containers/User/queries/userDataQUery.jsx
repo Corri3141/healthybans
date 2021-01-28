@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-export const USER_QUERY = gql`query($userId:String){
-  user(userId:$userId){
+export const USER_QUERY = gql`{
+  user{
 		id
     bloodType
     img
@@ -11,6 +11,7 @@ export const USER_QUERY = gql`query($userId:String){
     comment
     prepaidHealth
     prepaidId
+    emergencyNumber
     chronicDisease{
       id
       name

@@ -1,4 +1,4 @@
-import {Drawer, AppBar , List, ListItem, ListItemIcon, IconButton, Toolbar  } from '@material-ui/core';
+import {Drawer, AppBar , List, ListItem, ListItemIcon, IconButton, Toolbar, Divider  } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useState } from 'react';
@@ -8,6 +8,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useHistory } from "react-router-dom";
 import HomeIcon from '@material-ui/icons/Home';
 import { makeStyles } from '@material-ui/core/styles';
+import {useAuth} from "../../Auth/index" 
 
 const useStyles = makeStyles({
   paper: {
@@ -20,6 +21,8 @@ export default function Navbar(props){
     const [isDrawerOpen, setDrawerState] = useState(false)
     const history = useHistory();
     const styles = useStyles();
+    const {logout} = useAuth()
+
 
     const routeChange = (path) =>{  
         history.push(path);
@@ -75,7 +78,7 @@ export default function Navbar(props){
 
                     </List>
                     <List style={{position:"absolute", bottom:5}}>
-                        <ListItem button>
+                        <ListItem button onClick={logout}>
                                 <ListItemIcon>
                                     <ExitToAppIcon />
                                 </ListItemIcon>

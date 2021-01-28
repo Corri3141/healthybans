@@ -74,6 +74,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'qrsosBack.wsgi.application'
 
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -127,7 +131,11 @@ STATIC_URL = '/static/'
 AUTH_PROFILE_MODULE = 'qrApp.UserProfile'
 
 GRAPHENE = {
-    'SCHEMA': 'qrApp.schema.schema' # Where your Graphene schema lives
+    'SCHEMA': 'qrApp.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+    # Where your Graphene schema lives
 }
 
 CORS_ORIGIN_WHITELIST = [

@@ -8,7 +8,6 @@ function AllergiesPopUp(props) {
     const {user} = props
     const initialStates = {}
     user.allergy.map(item=> initialStates[item.id] = false)
-    console.log(initialStates)
     const [isOpen, setOpen] = useState(false)
     const [expand, setExpand] = useState(false)
     const [selected, setSelected] = useState(initialStates)
