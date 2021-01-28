@@ -10,6 +10,7 @@ import UserData from "../containers/User/index"
 import Navbar from "../pages/navbar/index"
 import Home from "../pages/home/index"
 import Login from "../pages/Login/index"
+import UserDataFromUrl from "../pages/userFromUrl/index"
 
 export default class Routes extends React.Component{
     render(){
@@ -27,9 +28,6 @@ export default class Routes extends React.Component{
                 </Switch>
                 <Switch>
                     <Route path="/profile" component={UserData} />
-                </Switch>
-                <Switch>
-                    <Route path="/login" component={Login} />
                 </Switch>
             </Router>
         )
