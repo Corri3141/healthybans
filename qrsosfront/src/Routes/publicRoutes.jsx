@@ -18,7 +18,7 @@ export default class PublicRoutes extends React.Component{
                 <Switch>
                     <Route path="/create" component={CreateUser} />
                 </Switch>
-                <Redirect to="/login" />
+                <Redirect to="/login" /> 
             </Router>
         )
     }

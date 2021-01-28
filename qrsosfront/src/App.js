@@ -1,5 +1,6 @@
 import Routes from "./Routes/routers"
 import PublicRoutes from "./Routes/publicRoutes"
+import GeneralRoutes from "./Routes/generalRoutes"
 import {AuthContext} from "./Auth/index"  
 import React,{useState,useEffect} from "react"
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
@@ -44,11 +45,27 @@ const App = () => {
       cache: new InMemoryCache(),
     });
 
+
+  const RouterReturn = () =>{
+
+    if(window.location.href.split("/url/").length == 1){
+
+      if(user.isAuthenticated){
+        return <Routes />
+      }else{
+        return <PublicRoutes />
+      }
+
+    }else{
+      return <GeneralRoutes />
+    }
+  }
+
   return (
     <div className="container mt-5">
        <AuthContext.Provider value={{user, authenticate, logout}} >
           <ApolloProvider client={client}>
-            {user.isAuthenticated ?  <Routes /> : <PublicRoutes />}
+            <RouterReturn />
           </ApolloProvider>
        </AuthContext.Provider>
     </div>

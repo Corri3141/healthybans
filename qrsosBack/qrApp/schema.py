@@ -1,5 +1,5 @@
 from graphene_django import DjangoObjectType
-from .models import ChronicDisease, Allergy, UserProfile
+from .models import ChronicDisease, Allergy, UserProfile, QrURL
 import graphene
 from dateutil.relativedelta import relativedelta
 from graphene import InputObjectType
@@ -19,12 +19,20 @@ class AllergyType(DjangoObjectType):
     class Meta:
         model = Allergy
     
+class QrUrlType(DjangoObjectType):
+    class Meta:
+        model = QrURL     
+    
 class Query(graphene.ObjectType):
     
     all_users = graphene.List(UserType)
     def resolve_all_users(self, info, **kwargs):
         return UserProfile.objects.all()
     
+    url = graphene.Field(QrUrlType, url=graphene.String())
+    def resolve_url(self, info, **kwargs):
+        return QrURL.objects.get(url=kwargs["url"])
+
     user = graphene.Field(UserType)
     def resolve_user(self, info, **kwargs):
         return info.context.user.userprofile

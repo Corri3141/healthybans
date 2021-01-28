@@ -1,6 +1,6 @@
   
 from django.contrib import admin
-from .models import ChronicDisease, Allergy, UserProfile
+from .models import ChronicDisease, Allergy, UserProfile, QrURL
 
 admin.site.site_header = "SOS DB";
 admin.site.site_title = "SOS DB";
@@ -12,4 +12,5 @@ class UserAdmin(admin.ModelAdmin):
 admin.site.register(UserProfile,UserAdmin)
 admin.site.register(ChronicDisease)
 admin.site.register(Allergy)
+admin.site.register(QrURL)
 
