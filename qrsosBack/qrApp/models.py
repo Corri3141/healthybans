@@ -3,10 +3,6 @@ from django.db.models.signals import post_save
 from django.db import models
 import hashlib
 
-
-class QrURL(models.Model):
-    url = models.CharField(max_length=3000, unique=True)
-
 class UserProfile(models.Model):  
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
     BLOOD_TYPE_CHOICES = [
@@ -28,23 +24,13 @@ class UserProfile(models.Model):
     comment = models.TextField( null = True, blank = True)
     img = models.ImageField(null = True, blank = True, upload_to='face')
     prepaidId = models.CharField(null=True, blank=True, max_length=200)
-    qr_url = models.OneToOneField(QrURL, related_name="user", null=True, blank=True,on_delete=models.DO_NOTHING)
     important_type_disease = models.CharField(null=True, blank=True, max_length=200)
     def __str__(self):  
           return "%s's profile" % self.user  
 
-def create_user_profile(sender, instance, created, **kwargs):  
-    if created:  
-       #aca voy a crear la url con un hasheo
-       string = str(instance.first_name)+str(instance.id)
-       print(string)
-       hash_object = hashlib.md5(string.encode())
-       qr_url = QrURL(url = hash_object.hexdigest())
-       instance.qr_url = qr_url
-       qr_url.save()
-       instance.save()
-       
-post_save.connect(create_user_profile, sender=UserProfile) 
+class QrURL(models.Model):
+    url = models.CharField(max_length=3000, unique=True)
+    user = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING, related_name="qr_url", null=True, blank=True)
 
 class ChronicDisease(models.Model):
     name = models.CharField(max_length=200)
