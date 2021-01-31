@@ -103,9 +103,28 @@ class CreateUser(graphene.Mutation):
             
         return CreateUser(user=user_profile)
 
+class ActivateCode(graphene.Mutation):
+    success = graphene.Boolean()
+    class Arguments:
+        qr_url = graphene.String()
+        
+    def mutate(self, info, **inputs):
+        user = info.context.user.userprofile
+        qr_url = inputs.pop("qr_url", None)
+
+        try:
+            qr_objet = QrURL.objects.get(url=qr_url)
+            qr_objet.user = user
+            qr_objet.save()
+        except Exception:
+            raise Exception
+        
+        return ActivateCode(success=True)
+
 
 class Mutation(graphene.ObjectType):
     edit_user = EditUser.Field()
+    activate_code = ActivateCode.Field()
     token_auth = graphql_jwt.relay.ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.relay.Verify.Field()
     refresh_token = graphql_jwt.relay.Refresh.Field()
