@@ -48,7 +48,6 @@ class Query(graphene.ObjectType):
 class EditUser(graphene.Mutation):
     user = graphene.Field(UserType)
     class Arguments:
-        id = graphene.String()
         first_name = graphene.String()
         last_name = graphene.String()    
         dni = graphene.String()  
@@ -56,14 +55,13 @@ class EditUser(graphene.Mutation):
         emergency_number = graphene.String() 
         prepaidId =  graphene.String() 
         blood_type =  graphene.String() 
-        
+        wheight = graphene.String() 
         
     def mutate(self, info, **inputs):
-        user = UserProfile.objects.get(user__id=inputs.get("id"))
+        user =  info.context.user.userprofile
 
         for k in inputs:
-            if inputs[k] and k != "id":
-                setattr(user, k, inputs[k])
+            setattr(user, k, inputs[k])
 
         user.save()
             
