@@ -24,7 +24,8 @@ class UserProfile(models.Model):
     comment = models.TextField( null = True, blank = True)
     img = models.ImageField(null = True, blank = True, upload_to='face')
     prepaidId = models.CharField(null=True, blank=True, max_length=200)
-    important_type_disease = models.CharField(null=True, blank=True, max_length=200)
+    weight = models.FloatField(null=True, blank=True)
+    birthday = models.DateField(null=True, blank=True)
     def __str__(self):  
           return "%s's profile" % self.user  
 
