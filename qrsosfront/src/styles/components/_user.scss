@@ -1,9 +1,0 @@
-.user{
-    &__photo{
-        height: 100%;
-        background-color: $green;
-        @include media-breakpoint-up(md){
-            // aca vamos a adaptar cosas para mobile/ desktop
-        }
-    }
-}
