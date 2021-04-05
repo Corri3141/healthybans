@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -142,3 +143,8 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://localhost:1234',
 ]
+
+BASE_URL = 'http://localhost:8000' if DEBUG else 'https://test.cudmed.com.ar'
+
+#activates django heroku
+django_heroku.settings(locals())

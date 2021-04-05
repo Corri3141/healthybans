@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.db import models
 import hashlib
-from django.core.validators import MinLengthValidator
 
 class UserProfile(models.Model):  
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
@@ -27,7 +26,7 @@ class UserProfile(models.Model):
     prepaidId = models.CharField(null=True, blank=True, max_length=200)
     weight = models.FloatField(null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
-    pin = models.IntegerField('Pin', max_length=4, validators=[MinLengthValidator(4)])
+    pin = models.IntegerField('Pin')
     def __str__(self):  
           return "%s's profile" % self.user  
 
