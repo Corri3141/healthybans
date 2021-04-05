@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '1txn%9uue+9ca701t#4zr-r2-i=44sl8$d6($n*qb-l3h!p_vb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://localhost:8000', "https://cudmed.herokuapp.com/"]
 
 
 # Application definition
