@@ -144,7 +144,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:1234',
 ]
 
-BASE_URL = 'http://localhost:8000' if DEBUG else 'https://test.cudmed.com.ar'
+BASE_URL = 'http://localhost:8000' if DEBUG else 'https://cudmed.herokuapp.com'
 
 #activates django heroku
 django_heroku.settings(locals())
