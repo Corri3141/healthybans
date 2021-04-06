@@ -142,6 +142,7 @@ GRAPHENE = {
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://localhost:1234',
+    'https://test.cudmed.com.ar/',
 ]
 
 BASE_URL = 'https://cudmed.herokuapp.com'
