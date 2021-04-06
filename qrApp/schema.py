@@ -64,13 +64,14 @@ class EditUser(graphene.Mutation):
         blood_type =  graphene.String() 
         wheight = graphene.String() 
         img = Upload()
+        comment = graphene.String()
+        birthday = graphene.String()
         
     def mutate(self, info, **inputs):
         user =  info.context.user.userprofile
-
+        print(inputs["img"])
         for k in inputs:
             if k == "img":
-                print(inputs[k])
                 if inputs[k] and hasattr(inputs[k], "read") :
                     user.img = inputs[k]
                 elif inputs[k] == None:
